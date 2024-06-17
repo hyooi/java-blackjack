@@ -4,9 +4,12 @@ import blackjack.enums.ResultStatusType;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Player {
+    public static final int MAX_SCORE = 21;
+
     private final String name;
     private final Set<Card> cards = new HashSet<>();
 
@@ -31,25 +34,33 @@ public class Player {
     }
 
     public int calculateScore() {
-        int totalScore = 0;
-        int aceCount = 0;
-        for (Card card : cards) {
-            if (card.isAce()) {
-                aceCount++;
-            }
-            totalScore += card.getScore();
-        }
-        for (int i = 0; i < aceCount; i++) {
-            if (totalScore+10>21){
+        int totalScore = cards.stream()
+                .mapToInt(Card::getScore)
+                .sum();
+        var extraScores = cards.stream()
+                .filter(card -> card.extraScore() > 0)
+                .mapToInt(Card::extraScore)
+                .boxed()
+                .toList();
+
+        return applyExtraScore(extraScores, totalScore);
+    }
+
+    private static int applyExtraScore(List<Integer> extraScores, int totalScore) {
+        for (int extraScore : extraScores) {
+            if (totalScore + extraScore > MAX_SCORE) {
                 return totalScore;
             }
-            totalScore+=10;
+
+            totalScore += extraScore;
         }
+
         return totalScore;
     }
 
     public ResultStatusType checkResult(int score) {
-        if (score == calculateScore()) {
+        var currentScore = calculateScore();
+        if (score == currentScore) {
             return ResultStatusType.DRAW;
         }
 
@@ -57,10 +68,10 @@ public class Player {
             return ResultStatusType.WIN;
         }
 
-        if (calculateScore() > 21) {
+        if (currentScore > 21) {
             return ResultStatusType.LOSE;
         }
 
-        return score < calculateScore()? ResultStatusType.WIN : ResultStatusType.LOSE;
+        return score < currentScore? ResultStatusType.WIN : ResultStatusType.LOSE;
     }
 }

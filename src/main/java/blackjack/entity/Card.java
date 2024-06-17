@@ -16,8 +16,8 @@ public class Card {
         return score.getScore();
     }
 
-    public boolean isAce(){
-        return score==ScoreType.ACE;
+    public int extraScore() {
+        return score.getExtraScore();
     }
 
     @Override

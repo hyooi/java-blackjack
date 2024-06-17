@@ -37,10 +37,7 @@ public class Deck {
         return cards.size();
     }
 
-    public Card getRandomCard() {
-        var card = cards.get(0);
-        cards.remove(card);
-
-        return card;
+    public Card getFirstCard() {
+        return cards.remove(0);
     }
 }
