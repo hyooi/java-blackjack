@@ -22,4 +22,8 @@ public enum ScoreType {
     ScoreType(List<Integer> scores) {
         this.scores = scores;
     }
+
+    public List<Integer> getScores() {
+        return scores;
+    }
 }

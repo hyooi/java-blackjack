@@ -19,4 +19,34 @@ class PlayerTest {
         assertThat(player.cardSize())
                 .isEqualTo(2);
     }
+
+    @Test
+    void test1(){
+        var player = new Player("pobi");
+        player.receiveCard(
+                new Card(CardType.CLOVER, ScoreType.ACE),
+                new Card(CardType.SPADE, ScoreType.QUEEN)
+        );
+        assertThat(player.calculateScore()).isEqualTo(21);
+
+    }
+
+    @Test
+    void test2(){
+        var player = new Player("pobi");
+        player.receiveCard(
+                new Card(CardType.CLOVER, ScoreType.ACE),
+                new Card(CardType.SPADE, ScoreType.ACE)
+        );
+        assertThat(player.calculateScore()).isEqualTo(12);
+    }
+    @Test
+    void test3(){
+        var player = new Player("pobi");
+        player.receiveCard(
+                new Card(CardType.CLOVER, ScoreType.QUEEN),
+                new Card(CardType.SPADE, ScoreType.TWO)
+        );
+        assertThat(player.calculateScore()).isEqualTo(12);
+    }
 }

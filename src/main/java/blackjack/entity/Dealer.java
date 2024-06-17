@@ -4,9 +4,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Dealer {
+public class Dealer extends Player {
+
     private final Deck deck = Deck.of();
     private final Set<Card> cards = new HashSet<>();
+
+    public Dealer() {
+        super("dealer");
+    }
 
     public int deckSize() {
         return deck.size();
