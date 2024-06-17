@@ -1,29 +1,33 @@
 package blackjack.enums;
 
-import java.util.List;
-
 public enum ScoreType {
-    ACE(List.of(1, 11)),
-    TWO(List.of(2)),
-    THREE(List.of(3)),
-    FOUR(List.of(4)),
-    FIVE(List.of(5)),
-    SIX(List.of(6)),
-    SEVEN(List.of(7)),
-    EIGHT(List.of(8)),
-    NINE(List.of(9)),
-    TEN(List.of(10)),
-    KING(List.of(10)),
-    QUEEN(List.of(10)),
-    JACK(List.of(10));
+    ACE(1, "A"),
+    TWO(2, "2"),
+    THREE(3, "3"),
+    FOUR(4, "4"),
+    FIVE(5, "5"),
+    SIX(6, "6"),
+    SEVEN(7, "7"),
+    EIGHT(8, "8"),
+    NINE(9, "9"),
+    TEN(10, "10"),
+    KING(10, "K"),
+    QUEEN(10, "Q"),
+    JACK(10, "J");
 
-    private final List<Integer> scores;
+    private final int score;
+    private final String name;
 
-    ScoreType(List<Integer> scores) {
-        this.scores = scores;
+    ScoreType(int score, String name) {
+        this.score = score;
+        this.name = name;
     }
 
-    public List<Integer> getScores() {
-        return scores;
+    public int getScore() {
+        return score;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -1,6 +1,5 @@
 package blackjack.entity;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,15 +16,17 @@ public class Dealer extends Player {
         return deck.size();
     }
 
-    public int cardSize() {
-        return cards.size();
-    }
+    public boolean giveCard(Player player) {
+        if (player instanceof Dealer) {
+            if (calculateScore() < 16) {
+                player.receiveCard(deck.getRandomCard());
+                return true;
+            }
 
-    public void giveCard(Player player) {
+            return false;
+        }
+
         player.receiveCard(deck.getRandomCard());
-    }
-
-    public void receiveCard(Card... cards) {
-        this.cards.addAll(Arrays.asList(cards));
+        return true;
     }
 }

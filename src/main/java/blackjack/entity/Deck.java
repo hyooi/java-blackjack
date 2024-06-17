@@ -38,6 +38,9 @@ public class Deck {
     }
 
     public Card getRandomCard() {
-        return cards.get(0);
+        var card = cards.get(0);
+        cards.remove(card);
+
+        return card;
     }
 }
