@@ -1,6 +1,6 @@
 package blackjack.entity;
 
-import blackjack.enums.ResultStatusType;
+import blackjack.enums.StatusType;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -58,20 +58,32 @@ public class Player {
         return totalScore;
     }
 
-    public ResultStatusType checkResult(int score) {
+    public StatusType checkResult(int score) {
         var currentScore = calculateScore();
         if (score == currentScore) {
-            return ResultStatusType.DRAW;
+            return StatusType.DRAW;
         }
 
         if (score > 21) {
-            return ResultStatusType.WIN;
+            return StatusType.WIN;
         }
 
         if (currentScore > 21) {
-            return ResultStatusType.LOSE;
+            return StatusType.LOSE;
         }
 
-        return score < currentScore? ResultStatusType.WIN : ResultStatusType.LOSE;
+        return score < currentScore? StatusType.WIN : StatusType.LOSE;
+    }
+
+    public boolean isBlackJack() {
+        return 21 == calculateScore();
+    }
+
+    public boolean isBust() {
+        return 21 < calculateScore();
+    }
+
+    public boolean isDealer() {
+        return false;
     }
 }

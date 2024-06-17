@@ -1,13 +1,13 @@
 package blackjack.enums;
 
-public enum ResultStatusType {
+public enum StatusType {
     WIN("승"),
     LOSE("패"),
     DRAW("무");
 
     private final String description;
 
-    ResultStatusType(String description) {
+    StatusType(String description) {
         this.description = description;
     }
 

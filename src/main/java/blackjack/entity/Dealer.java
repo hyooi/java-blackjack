@@ -9,7 +9,7 @@ public class Dealer extends Player {
 
     public boolean giveCard(Player player) {
         if (player == this) {
-            if (calculateScore() < 16) {
+            if (calculateScore() <= 16) {
                 player.receiveCard(deck.getFirstCard());
                 return true;
             }
@@ -18,6 +18,11 @@ public class Dealer extends Player {
         }
 
         player.receiveCard(deck.getFirstCard());
+        return true;
+    }
+
+    @Override
+    public boolean isDealer() {
         return true;
     }
 }

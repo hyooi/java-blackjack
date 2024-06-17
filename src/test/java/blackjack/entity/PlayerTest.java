@@ -1,7 +1,7 @@
 package blackjack.entity;
 
 import blackjack.enums.CardType;
-import blackjack.enums.ResultStatusType;
+import blackjack.enums.StatusType;
 import blackjack.enums.ScoreType;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +22,7 @@ class PlayerTest {
         assertThat(player.calculateScore())
                 .isEqualTo(21);
         assertThat(player.checkResult(10))
-                .isEqualTo(ResultStatusType.WIN);
+                .isEqualTo(StatusType.WIN);
     }
 
     @Test
@@ -38,7 +38,7 @@ class PlayerTest {
         assertThat(player.calculateScore())
                 .isEqualTo(12);
         assertThat(player.checkResult(12))
-                .isEqualTo(ResultStatusType.DRAW);
+                .isEqualTo(StatusType.DRAW);
     }
 
     @Test
@@ -54,6 +54,6 @@ class PlayerTest {
         assertThat(player.calculateScore())
                 .isEqualTo(12);
         assertThat(player.checkResult(15))
-                .isEqualTo(ResultStatusType.LOSE);
+                .isEqualTo(StatusType.LOSE);
     }
 }
