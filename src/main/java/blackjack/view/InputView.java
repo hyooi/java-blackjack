@@ -20,7 +20,4 @@ class InputView {
         return scan.nextLine();
     }
 
-    protected int inputNumber() {
-        return Integer.parseInt(inputString());
-    }
 }

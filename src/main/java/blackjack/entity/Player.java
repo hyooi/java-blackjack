@@ -1,7 +1,5 @@
 package blackjack.entity;
 
-import blackjack.enums.StatusType;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -23,10 +21,6 @@ public class Player {
 
     public int cardSize() {
         return cards.size();
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Set<Card> getCards() {
@@ -58,32 +52,8 @@ public class Player {
         return totalScore;
     }
 
-    public StatusType checkResult(int score) {
-        var currentScore = calculateScore();
-        if (score == currentScore) {
-            return StatusType.DRAW;
-        }
-
-        if (score > 21) {
-            return StatusType.WIN;
-        }
-
-        if (currentScore > 21) {
-            return StatusType.LOSE;
-        }
-
-        return score < currentScore? StatusType.WIN : StatusType.LOSE;
-    }
-
-    public boolean isBlackJack() {
-        return 21 == calculateScore();
-    }
-
-    public boolean isBust() {
-        return 21 < calculateScore();
-    }
-
-    public boolean isDealer() {
-        return false;
+    @Override
+    public String toString() {
+        return name;
     }
 }
