@@ -1,5 +1,8 @@
 package blackjack.entity;
 
+import blackjack.entity.status.BlackJack;
+import blackjack.entity.status.Bust;
+import blackjack.entity.status.Stand;
 import blackjack.enums.CardNumberType;
 import blackjack.enums.CardType;
 import org.junit.jupiter.api.DisplayName;
@@ -52,13 +55,13 @@ class PlayerTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideStringsForIsBlank")
+    @MethodSource("cardsAndScore")
     void score(List<Card> cards, int score) {
         var player = new Player("foo", 1000, cards);
         assertThat(player.score()).isEqualTo(score);
     }
 
-    private static Stream<Arguments> provideStringsForIsBlank() {
+    private static Stream<Arguments> cardsAndScore() {
         return Stream.of(
                 Arguments.of(List.of(
                         new Card(CardType.CLOVER, CardNumberType.EIGHT),
@@ -81,5 +84,101 @@ class PlayerTest {
                         new Card(CardType.HEART, CardNumberType.ACE)
                 ), 12)
         );
+    }
+
+    @Test
+    @DisplayName("플레이어 블랙잭 승리")
+    void play1() {
+        var player = new Player("pobi", 1000, List.of(
+                new Card(CardType.CLOVER, CardNumberType.EIGHT),
+                new Card(CardType.DIAMOND, CardNumberType.EIGHT)
+        ));
+        var dealer = new Dealer(List.of(
+                new Card(CardType.CLOVER, CardNumberType.TWO),
+                new Card(CardType.DIAMOND, CardNumberType.TWO)
+        ));
+        var status = player.play(new Card(CardType.CLOVER, CardNumberType.FIVE));
+        assertThat(status).isInstanceOf(BlackJack.class);
+        assertThat(player.getReward(dealer)).isEqualTo(1500);
+    }
+
+    @Test
+    @DisplayName("블랙잭 무승부")
+    void play2() {
+        var player = new Player("pobi", 1000, List.of(
+                new Card(CardType.CLOVER, CardNumberType.EIGHT),
+                new Card(CardType.DIAMOND, CardNumberType.EIGHT)
+        ));
+        var dealer = new Dealer(List.of(
+                new Card(CardType.CLOVER, CardNumberType.ACE),
+                new Card(CardType.DIAMOND, CardNumberType.JACK)
+        ));
+        var status = player.play(new Card(CardType.CLOVER, CardNumberType.FIVE));
+        assertThat(status).isInstanceOf(BlackJack.class);
+        assertThat(player.getReward(dealer)).isEqualTo(1000);
+    }
+
+    @Test
+    @DisplayName("플레이어 bust패배")
+    void play3() {
+        var player = new Player("pobi", 1000, List.of(
+                new Card(CardType.CLOVER, CardNumberType.EIGHT),
+                new Card(CardType.DIAMOND, CardNumberType.EIGHT)
+        ));
+        var dealer = new Dealer(List.of(
+                new Card(CardType.CLOVER, CardNumberType.QUEEN),
+                new Card(CardType.DIAMOND, CardNumberType.JACK)
+        ));
+        var status = player.play(new Card(CardType.CLOVER, CardNumberType.NINE));
+        assertThat(status).isInstanceOf(Bust.class);
+        assertThat(player.getReward(dealer)).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("플레이어 stand승리")
+    void play4() {
+        var player = new Player("pobi", 1000, List.of(
+                new Card(CardType.CLOVER, CardNumberType.EIGHT),
+                new Card(CardType.DIAMOND, CardNumberType.EIGHT)
+        ));
+        var dealer = new Dealer(List.of(
+                new Card(CardType.CLOVER, CardNumberType.TWO),
+                new Card(CardType.DIAMOND, CardNumberType.JACK)
+        ));
+        var status = player.stop();
+        assertThat(status).isInstanceOf(Stand.class);
+        assertThat(player.getReward(dealer)).isEqualTo(2000);
+    }
+
+    @Test
+    @DisplayName("플레이어 stand무승부")
+    void play5() {
+        var player = new Player("pobi", 1000, List.of(
+                new Card(CardType.CLOVER, CardNumberType.EIGHT),
+                new Card(CardType.DIAMOND, CardNumberType.EIGHT)
+        ));
+        var dealer = new Dealer(List.of(
+                new Card(CardType.CLOVER, CardNumberType.FIVE),
+                new Card(CardType.DIAMOND, CardNumberType.ACE)
+        ));
+        var status = player.stop();
+        assertThat(status).isInstanceOf(Stand.class);
+        assertThat(player.getReward(dealer)).isEqualTo(1000);
+    }
+
+    @Test
+    @DisplayName("플레이어 stand패배")
+    void play6() {
+        var player = new Player("pobi", 1000, List.of(
+                new Card(CardType.CLOVER, CardNumberType.EIGHT),
+                new Card(CardType.DIAMOND, CardNumberType.EIGHT)
+        ));
+        var dealer = new Dealer(List.of(
+                new Card(CardType.CLOVER, CardNumberType.KING),
+                new Card(CardType.DIAMOND, CardNumberType.ACE)
+        ));
+        var status = player.stop();
+        assertThat(status).isInstanceOf(Stand.class);
+        assertThat(player.getReward(dealer)).isEqualTo(0);
     }
 }

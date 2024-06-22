@@ -1,15 +1,15 @@
 package blackjack.entity;
 
-import blackjack.entity.status.Start;
-import blackjack.entity.status.Status;
+import blackjack.entity.status.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
     private final String name;
-    private final Status status;
     private final int money;
-    private final List<Card> cards;
+    private final List<Card> cards = new ArrayList<>();
+    private Status status = new Start();
 
     public Player(String name, int money, List<Card> cards) {
         if (cards.size() != 2) {
@@ -22,8 +22,8 @@ public class Player {
 
         this.name = name;
         this.money = money;
-        this.cards = cards;
-        this.status = new Start();
+        this.cards.addAll(cards);
+        this.status = this.status.process(score());
     }
 
     public int score() {
@@ -42,4 +42,35 @@ public class Player {
         return result;
     }
 
+    public Status play(Card card) {
+        cards.add(card);
+        this.status = status.process(score());
+
+        return status;
+    }
+
+    public Status stop() {
+        this.status = new Stand();
+        return status;
+    }
+
+    public double getReward(Dealer dealer) {
+        if (isBlackjack() && dealer.isBlackjack()) {
+            return money;
+        }
+
+        if (status instanceof Stand stand) {
+            return stand.getReward(dealer.score(), score(), money);
+        }
+
+        return status.getReward(money);
+    }
+
+    public boolean isBlackjack() {
+        return status instanceof BlackJack;
+    }
+
+    public boolean isBust() {
+        return status instanceof Bust;
+    }
 }
