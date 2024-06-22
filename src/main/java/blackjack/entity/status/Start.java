@@ -1,0 +1,25 @@
+package blackjack.entity.status;
+
+/**
+ * 첫 두장의 카드를 받은 상태
+ */
+public final class Start implements Status {
+
+    @Override
+    public Status process(int score) {
+        if (score == 21) {
+            return new BlackJack();
+        }
+
+        return new Hit();
+    }
+
+    @Override
+    public double getReward(int money) {
+        return money;
+    }
+
+    public Stand stand() {
+        return new Stand();
+    }
+}
