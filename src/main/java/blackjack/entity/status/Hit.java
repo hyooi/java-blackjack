@@ -14,8 +14,4 @@ public final class Hit extends Running {
 
         return this;
     }
-
-    public Stand stand() {
-        return new Stand();
-    }
 }

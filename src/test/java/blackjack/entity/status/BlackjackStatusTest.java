@@ -34,21 +34,6 @@ class BlackjackStatusTest {
     }
 
     @Test
-    @DisplayName("Start에서 카드를 더 이상 받지 않으면 stand. 게임이 종료된다.")
-    void start_to_stand() {
-        var start = new Start();
-        var result = start.stand();
-        assertThat(result)
-                .isInstanceOf(Stand.class);
-        assertThat(result.getReward(10, 20, 1000))
-                .isEqualTo(2000);
-        assertThat(result.getReward(20, 10, 1000))
-                .isEqualTo(0);
-        assertThat(result.getReward(10, 10, 1000))
-                .isEqualTo(1000);
-    }
-
-    @Test
     @DisplayName("Hit에서 카드 합이 21을 초과한다. 즉시 패배한다.")
     void hit_to_bust() {
         var hit = new Hit();
@@ -85,12 +70,14 @@ class BlackjackStatusTest {
     }
 
     @Test
-    @DisplayName("Hit에서 카드를 더 이상 받지 않으면 stand. 게임이 종료된다.")
+    @DisplayName("Stand의 경우 베팅 금액을 별도로 계산한다.")
     void hit_to_stand() {
-        var hit = new Hit();
-        var result = hit.stand();
-        assertThat(result)
-                .isInstanceOf(Stand.class);
+        var result = new Stand();
+        assertThatThrownBy(() -> {
+            result.process(10);
+        })
+                .isInstanceOf(UnsupportedOperationException.class)
+                .hasMessageContaining("게임이 종료되었습니다.");
         assertThat(result.getReward(10, 20, 1000))
                 .isEqualTo(2000);
         assertThat(result.getReward(20, 10, 1000))

@@ -18,8 +18,4 @@ public final class Start implements Status {
     public double getReward(int money) {
         return money;
     }
-
-    public Stand stand() {
-        return new Stand();
-    }
 }
