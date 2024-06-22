@@ -93,7 +93,7 @@ class PlayerTest {
                 new Card(CardType.CLOVER, CardNumberType.EIGHT),
                 new Card(CardType.DIAMOND, CardNumberType.EIGHT)
         ));
-        var dealer = new Dealer(List.of(
+        var dealer = new Dealer(Deck.of(), List.of(
                 new Card(CardType.CLOVER, CardNumberType.TWO),
                 new Card(CardType.DIAMOND, CardNumberType.TWO)
         ));
@@ -109,7 +109,7 @@ class PlayerTest {
                 new Card(CardType.CLOVER, CardNumberType.EIGHT),
                 new Card(CardType.DIAMOND, CardNumberType.EIGHT)
         ));
-        var dealer = new Dealer(List.of(
+        var dealer = new Dealer(Deck.of(), List.of(
                 new Card(CardType.CLOVER, CardNumberType.ACE),
                 new Card(CardType.DIAMOND, CardNumberType.JACK)
         ));
@@ -125,7 +125,7 @@ class PlayerTest {
                 new Card(CardType.CLOVER, CardNumberType.EIGHT),
                 new Card(CardType.DIAMOND, CardNumberType.EIGHT)
         ));
-        var dealer = new Dealer(List.of(
+        var dealer = new Dealer(Deck.of(), List.of(
                 new Card(CardType.CLOVER, CardNumberType.QUEEN),
                 new Card(CardType.DIAMOND, CardNumberType.JACK)
         ));
@@ -141,7 +141,7 @@ class PlayerTest {
                 new Card(CardType.CLOVER, CardNumberType.EIGHT),
                 new Card(CardType.DIAMOND, CardNumberType.EIGHT)
         ));
-        var dealer = new Dealer(List.of(
+        var dealer = new Dealer(Deck.of(), List.of(
                 new Card(CardType.CLOVER, CardNumberType.TWO),
                 new Card(CardType.DIAMOND, CardNumberType.JACK)
         ));
@@ -157,7 +157,7 @@ class PlayerTest {
                 new Card(CardType.CLOVER, CardNumberType.EIGHT),
                 new Card(CardType.DIAMOND, CardNumberType.EIGHT)
         ));
-        var dealer = new Dealer(List.of(
+        var dealer = new Dealer(Deck.of(), List.of(
                 new Card(CardType.CLOVER, CardNumberType.FIVE),
                 new Card(CardType.DIAMOND, CardNumberType.ACE)
         ));
@@ -173,7 +173,7 @@ class PlayerTest {
                 new Card(CardType.CLOVER, CardNumberType.EIGHT),
                 new Card(CardType.DIAMOND, CardNumberType.EIGHT)
         ));
-        var dealer = new Dealer(List.of(
+        var dealer = new Dealer(Deck.of(), List.of(
                 new Card(CardType.CLOVER, CardNumberType.KING),
                 new Card(CardType.DIAMOND, CardNumberType.ACE)
         ));

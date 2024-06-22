@@ -14,7 +14,7 @@ class DealerTest {
     @Test
     @DisplayName("딜러는 16점 이하일 때만 카드를 받는다.")
     void test1() {
-        var dealer = new Dealer(List.of(
+        var dealer = new Dealer(Deck.of(), List.of(
                 new Card(CardType.CLOVER, CardNumberType.TWO),
                 new Card(CardType.CLOVER, CardNumberType.FIVE)
         ));
@@ -25,7 +25,7 @@ class DealerTest {
     @Test
     @DisplayName("딜러는 17점 이상이면 카드를 받지 않는다.")
     void test2() {
-        var dealer = new Dealer(List.of(
+        var dealer = new Dealer(Deck.of(), List.of(
                 new Card(CardType.CLOVER, CardNumberType.EIGHT),
                 new Card(CardType.CLOVER, CardNumberType.QUEEN)
         ));

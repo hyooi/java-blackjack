@@ -3,10 +3,16 @@ package blackjack.entity;
 import java.util.List;
 
 public class Dealer extends Gamer {
-    private final Deck deck = Deck.of();
+    private final Deck deck;
 
-    public Dealer(List<Card> cards) {
+    public Dealer(Deck deck, List<Card> cards) {
         super("딜러", cards);
+        this.deck = deck;
+    }
+
+    public static Dealer of() {
+        var deck = Deck.of();
+        return new Dealer(deck, List.of(deck.getCard(), deck.getCard()));
     }
 
     public void play(Gamer gamer) {
