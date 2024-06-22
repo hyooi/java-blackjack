@@ -26,4 +26,20 @@ public class Player {
         this.status = new Start();
     }
 
+    public int score() {
+        int result = cards.stream()
+                .mapToInt(Card::getScore)
+                .sum();
+
+        long aceCount = cards.stream()
+                .filter(Card::isAce)
+                .count();
+
+        if (aceCount > 0 && result < 21) {
+            return result + 10;
+        }
+
+        return result;
+    }
+
 }

@@ -11,4 +11,12 @@ public class Card {
         this.cardType = cardType;
         this.cardNumberType = cardNumberType;
     }
+
+    public int getScore() {
+        return cardNumberType.getScore();
+    }
+
+    public boolean isAce() {
+        return CardNumberType.ACE == cardNumberType;
+    }
 }

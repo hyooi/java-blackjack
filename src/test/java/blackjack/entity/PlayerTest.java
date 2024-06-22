@@ -4,8 +4,12 @@ import blackjack.enums.CardNumberType;
 import blackjack.enums.CardType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -45,5 +49,37 @@ class PlayerTest {
         })
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("베팅 금액은 0 이상이어야 합니다.");
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideStringsForIsBlank")
+    void score(List<Card> cards, int score) {
+        var player = new Player("foo", 1000, cards);
+        assertThat(player.score()).isEqualTo(score);
+    }
+
+    private static Stream<Arguments> provideStringsForIsBlank() {
+        return Stream.of(
+                Arguments.of(List.of(
+                        new Card(CardType.CLOVER, CardNumberType.EIGHT),
+                        new Card(CardType.CLOVER, CardNumberType.TWO)
+                ), 10),
+                Arguments.of(List.of(
+                        new Card(CardType.CLOVER, CardNumberType.TWO),
+                        new Card(CardType.CLOVER, CardNumberType.FIVE)
+                ), 7),
+                Arguments.of(List.of(
+                        new Card(CardType.CLOVER, CardNumberType.JACK),
+                        new Card(CardType.CLOVER, CardNumberType.QUEEN)
+                ), 20),
+                Arguments.of(List.of(
+                        new Card(CardType.CLOVER, CardNumberType.JACK),
+                        new Card(CardType.CLOVER, CardNumberType.ACE)
+                ), 21),
+                Arguments.of(List.of(
+                        new Card(CardType.CLOVER, CardNumberType.ACE),
+                        new Card(CardType.HEART, CardNumberType.ACE)
+                ), 12)
+        );
     }
 }
