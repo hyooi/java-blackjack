@@ -1,7 +1,6 @@
 package blackjack.entity;
 
 import blackjack.entity.status.Stand;
-import blackjack.entity.status.Status;
 
 import java.util.List;
 
@@ -18,18 +17,18 @@ public class Player extends Gamer {
         this.money = money;
     }
 
-    public Status stop() {
-        this.status = new Stand();
-        return status;
+    public int getMoney() {
+        return money;
     }
 
-    public double getReward(Dealer dealer) {
-        if (isBlackjack() && dealer.isBlackjack()) {
+    @Override
+    public double getRewardWithGamer(Gamer gamer) {
+        if (isBlackjack() && gamer.isBlackjack()) {
             return money;
         }
 
         if (status instanceof Stand stand) {
-            return stand.getReward(dealer.score(), score(), money);
+            return stand.getReward(gamer.score(), score(), money);
         }
 
         return status.getReward(money);

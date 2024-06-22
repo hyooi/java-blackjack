@@ -99,7 +99,7 @@ class PlayerTest {
         ));
         var status = player.play(new Card(CardType.CLOVER, CardNumberType.FIVE));
         assertThat(status).isInstanceOf(BlackJack.class);
-        assertThat(player.getReward(dealer)).isEqualTo(1500);
+        assertThat(player.getRewardWithGamer(dealer)).isEqualTo(1500);
     }
 
     @Test
@@ -115,7 +115,7 @@ class PlayerTest {
         ));
         var status = player.play(new Card(CardType.CLOVER, CardNumberType.FIVE));
         assertThat(status).isInstanceOf(BlackJack.class);
-        assertThat(player.getReward(dealer)).isEqualTo(1000);
+        assertThat(player.getRewardWithGamer(dealer)).isEqualTo(1000);
     }
 
     @Test
@@ -131,7 +131,7 @@ class PlayerTest {
         ));
         var status = player.play(new Card(CardType.CLOVER, CardNumberType.NINE));
         assertThat(status).isInstanceOf(Bust.class);
-        assertThat(player.getReward(dealer)).isEqualTo(0);
+        assertThat(player.getRewardWithGamer(dealer)).isEqualTo(0);
     }
 
     @Test
@@ -147,7 +147,7 @@ class PlayerTest {
         ));
         var status = player.stop();
         assertThat(status).isInstanceOf(Stand.class);
-        assertThat(player.getReward(dealer)).isEqualTo(2000);
+        assertThat(player.getRewardWithGamer(dealer)).isEqualTo(2000);
     }
 
     @Test
@@ -163,7 +163,7 @@ class PlayerTest {
         ));
         var status = player.stop();
         assertThat(status).isInstanceOf(Stand.class);
-        assertThat(player.getReward(dealer)).isEqualTo(1000);
+        assertThat(player.getRewardWithGamer(dealer)).isEqualTo(1000);
     }
 
     @Test
@@ -179,6 +179,6 @@ class PlayerTest {
         ));
         var status = player.stop();
         assertThat(status).isInstanceOf(Stand.class);
-        assertThat(player.getReward(dealer)).isEqualTo(0);
+        assertThat(player.getRewardWithGamer(dealer)).isEqualTo(0);
     }
 }

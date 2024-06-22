@@ -19,4 +19,9 @@ public class Card {
     public boolean isAce() {
         return CardNumberType.ACE == cardNumberType;
     }
+
+    @Override
+    public String toString() {
+        return cardNumberType.getName() + cardType.getName();
+    }
 }

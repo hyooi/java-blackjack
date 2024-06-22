@@ -1,9 +1,6 @@
 package blackjack.entity;
 
-import blackjack.entity.status.BlackJack;
-import blackjack.entity.status.Bust;
-import blackjack.entity.status.Start;
-import blackjack.entity.status.Status;
+import blackjack.entity.status.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +35,15 @@ public abstract class Gamer {
         return status;
     }
 
+    public Status stop() {
+        if (isBlackjack() || isBust()) {
+            return status;
+        }
+
+        this.status = new Stand();
+        return status;
+    }
+
     public int score() {
         int result = cards.stream()
                 .mapToInt(Card::getScore)
@@ -47,10 +53,20 @@ public abstract class Gamer {
                 .filter(Card::isAce)
                 .count();
 
-        if (aceCount > 0 && result < 21) {
+        if (aceCount > 0 && result + 10 <= 21) {
             return result + 10;
         }
 
         return result;
+    }
+
+    public abstract double getRewardWithGamer(Gamer gamer);
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 }

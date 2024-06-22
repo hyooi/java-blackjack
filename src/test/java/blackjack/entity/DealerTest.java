@@ -32,4 +32,55 @@ class DealerTest {
         dealer.play(dealer);
         assertThat(dealer.score()).isEqualTo(18);
     }
+
+    @Test
+    @DisplayName("dealer승리 시 수익")
+    void test_reward1() {
+        var dealer = new Dealer(Deck.of(), List.of(
+                new Card(CardType.CLOVER, CardNumberType.EIGHT),
+                new Card(CardType.CLOVER, CardNumberType.QUEEN)
+        ));
+        var player = new Player("pobi", 1000, List.of(
+                new Card(CardType.CLOVER, CardNumberType.EIGHT),
+                new Card(CardType.CLOVER, CardNumberType.FIVE)
+        ));
+        player.stop();
+
+        assertThat(dealer.getRewardWithGamer(player))
+                .isEqualTo(1000.0);
+    }
+
+    @Test
+    @DisplayName("dealer무승부 시 수익")
+    void test_reward2() {
+        var dealer = new Dealer(Deck.of(), List.of(
+                new Card(CardType.CLOVER, CardNumberType.EIGHT),
+                new Card(CardType.CLOVER, CardNumberType.QUEEN)
+        ));
+        var player = new Player("pobi", 1000, List.of(
+                new Card(CardType.CLOVER, CardNumberType.NINE),
+                new Card(CardType.HEART, CardNumberType.NINE)
+        ));
+        player.stop();
+
+        assertThat(dealer.getRewardWithGamer(player))
+                .isEqualTo(0.0);
+    }
+
+    @Test
+    @DisplayName("dealer패배 시 수익")
+    void test_reward3() {
+        var dealer = new Dealer(Deck.of(), List.of(
+                new Card(CardType.CLOVER, CardNumberType.FIVE),
+                new Card(CardType.CLOVER, CardNumberType.QUEEN)
+        ));
+        var player = new Player("pobi", 1000, List.of(
+                new Card(CardType.CLOVER, CardNumberType.QUEEN),
+                new Card(CardType.CLOVER, CardNumberType.ACE)
+        ));
+        player.stop();
+
+        assertThat(dealer.getRewardWithGamer(player))
+                .isEqualTo(-500.0);
+    }
 }

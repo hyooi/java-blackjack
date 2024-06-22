@@ -15,11 +15,25 @@ public class Dealer extends Gamer {
         return new Dealer(deck, List.of(deck.getCard(), deck.getCard()));
     }
 
-    public void play(Gamer gamer) {
+    public boolean play(Gamer gamer) {
         if (gamer instanceof Dealer && score() >= 17) {
-            return;
+            return false;
         }
 
-        gamer.play(deck.getCard());
+        gamer.play(getCard());
+        return true;
+    }
+
+    public Card getCard() {
+        return deck.getCard();
+    }
+
+    @Override
+    public double getRewardWithGamer(Gamer gamer) {
+        if (gamer instanceof Player player) {
+            return player.getMoney() - player.getRewardWithGamer(this);
+        }
+
+        return 0;
     }
 }
