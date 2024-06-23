@@ -12,6 +12,10 @@ public final class Stand extends End {
             return money;
         }
 
+        if (dealerScore > MAX_SCORE) {
+            return money * 2;
+        }
+
         if (dealerScore > playerScore) {
             return 0;
         }
