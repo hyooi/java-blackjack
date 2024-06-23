@@ -7,7 +7,7 @@ public final class Start implements Status {
 
     @Override
     public Status process(int score) {
-        if (score == 21) {
+        if (score == MAX_SCORE) {
             return new BlackJack();
         }
 
